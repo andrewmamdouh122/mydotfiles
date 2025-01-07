@@ -22,5 +22,7 @@ The script will automatically install these dependencies if they are not already
 Clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/yourusername/kitty-neofetch-setup.git
-cd kitty-neofetch-setup
+git clone https://github.com/andrewmamdouh122/mydotfiles.git
+cd mydotfiles
+chmod +x install.sh
+./install.sh
