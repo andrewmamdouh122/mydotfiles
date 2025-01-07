@@ -1,14 +1,16 @@
 #!/bin/bash
 
+
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 
 echo "Updating system and installing required packages..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y kitty w3m w3m-img imagemagick neofetch
 
-
 mkdir -p ~/.config/kitty
 mkdir -p ~/.config/neofetch
+
 
 if [ -d ~/.config/kitty ]; then
     echo "Renaming existing Kitty configuration directory to kitty.backup..."
@@ -33,12 +35,29 @@ fi
 echo "Copying the .bashrc from $SCRIPT_DIR/.bashrc to ~/..."
 cp "$SCRIPT_DIR/.bashrc" ~/
 
+
+if ! grep -q "neofetch" ~/.bashrc; then
+    echo "Adding Neofetch to .bashrc..."
+    echo "neofetch" >> ~/.bashrc
+fi
+
+
+if [ -f ~/.zshrc ]; then
+    if ! grep -q "neofetch" ~/.zshrc; then
+        echo "Adding Neofetch to .zshrc..."
+        echo "neofetch" >> ~/.zshrc
+    fi
+fi
+
+
 echo "Setting up Kitty's image display for Neofetch..."
 echo "kitty +kitten icat" >> ~/.bashrc
+
 
 echo "Enabling image display in Neofetch..."
 echo "neofetch --image" >> ~/.bashrc
 
+# Provide instructions
 echo "Installation complete!"
-echo "1. Restart your terminal or run 'source ~/.bashrc' to apply the changes."
+echo "1. Restart your terminal or run 'source ~/.bashrc' and 'source ~/.zshrc' to apply the changes."
 echo "2. Run 'neofetch' to see the image displayed in Kitty terminal."
